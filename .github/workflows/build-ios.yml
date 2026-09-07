@@ -18,12 +18,11 @@ jobs:
           PROJECT=$(find . -name "*.xcodeproj" | head -1)
 
           if [ -z "$PROJECT" ]; then
-            echo "没有找到 xcodeproj"
+            echo "❌ 没有找到 xcodeproj"
             exit 1
           fi
 
-          echo "找到工程: $PROJECT"
-
+          echo "✅ 找到工程: $PROJECT"
           echo "project=$PROJECT" >> "$GITHUB_OUTPUT"
 
       - name: Show Xcode Version
@@ -37,33 +36,6 @@ jobs:
             -list \
             -project "${{ steps.project.outputs.project }}"
 
-      - name: Detect Scheme
-        id: scheme
-        shell: bash
-        run: |
-          PROJECT="${{ steps.project.outputs.project }}"
-
-          SCHEME=$(xcodebuild \
-            -list \
-            -json \
-            -project "$PROJECT" \
-            | python3 -c '
-          import json,sys
-          data=json.load(sys.stdin)
-          schemes=data.get("project",{}).get("schemes",[])
-          if not schemes:
-              sys.exit(1)
-          print(schemes[0])
-          ')
-
-          if [ -z "$SCHEME" ]; then
-            echo "没有找到 Scheme"
-            exit 1
-          fi
-
-          echo "找到 Scheme: $SCHEME"
-          echo "scheme=$SCHEME" >> "$GITHUB_OUTPUT"
-
       - name: Build iOS App
         shell: bash
         run: |
@@ -71,7 +43,7 @@ jobs:
 
           xcodebuild \
             -project "${{ steps.project.outputs.project }}" \
-            -scheme "${{ steps.scheme.outputs.scheme }}" \
+            -scheme "菠萝单词" \
             -configuration Release \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
@@ -82,28 +54,45 @@ jobs:
             build \
             | tee build.log
 
+      - name: Find Built App
+        shell: bash
+        run: |
+          echo "正在查找编译结果..."
+
+          find "$PWD/build" -type d -name "*.app" -print || true
+
       - name: Create IPA
         shell: bash
         run: |
-          APP=$(find "$PWD/build" \
+          APP=$(find "$PWD/build/Build/Products" \
             -type d \
             -name "*.app" \
-            -path "*Release-iphoneos*" \
+            ! -name "*Tests*" \
+            ! -name "*UITests*" \
             | head -1)
 
           if [ -z "$APP" ]; then
-            echo "没有找到编译后的 APP"
+            echo "❌ 没有找到编译后的 .app"
+            echo "下面是 Build/Products 的内容："
+            find "$PWD/build/Build/Products" -maxdepth 5 -print || true
             exit 1
           fi
 
-          echo "找到 APP: $APP"
+          echo "✅ 找到 App:"
+          echo "$APP"
 
           rm -rf Payload
-          mkdir Payload
+          mkdir -p Payload
 
           cp -R "$APP" Payload/
 
-          zip -r PineappleWords-unsigned.ipa Payload
+          /usr/bin/zip \
+            -r \
+            PineappleWords-unsigned.ipa \
+            Payload
+
+          echo "✅ IPA 创建成功"
+          ls -lh PineappleWords-unsigned.ipa
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
