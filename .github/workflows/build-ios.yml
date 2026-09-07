@@ -1,0 +1,120 @@
+name: Build iOS IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find Xcode Project
+        id: project
+        shell: bash
+        run: |
+          PROJECT=$(find . -name "*.xcodeproj" | head -1)
+
+          if [ -z "$PROJECT" ]; then
+            echo "没有找到 xcodeproj"
+            exit 1
+          fi
+
+          echo "找到工程: $PROJECT"
+
+          echo "project=$PROJECT" >> "$GITHUB_OUTPUT"
+
+      - name: Show Xcode Version
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Show Project Info
+        run: |
+          xcodebuild \
+            -list \
+            -project "${{ steps.project.outputs.project }}"
+
+      - name: Detect Scheme
+        id: scheme
+        shell: bash
+        run: |
+          PROJECT="${{ steps.project.outputs.project }}"
+
+          SCHEME=$(xcodebuild \
+            -list \
+            -json \
+            -project "$PROJECT" \
+            | python3 -c '
+          import json,sys
+          data=json.load(sys.stdin)
+          schemes=data.get("project",{}).get("schemes",[])
+          if not schemes:
+              sys.exit(1)
+          print(schemes[0])
+          ')
+
+          if [ -z "$SCHEME" ]; then
+            echo "没有找到 Scheme"
+            exit 1
+          fi
+
+          echo "找到 Scheme: $SCHEME"
+          echo "scheme=$SCHEME" >> "$GITHUB_OUTPUT"
+
+      - name: Build iOS App
+        shell: bash
+        run: |
+          set -o pipefail
+
+          xcodebuild \
+            -project "${{ steps.project.outputs.project }}" \
+            -scheme "${{ steps.scheme.outputs.scheme }}" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath "$PWD/build" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build \
+            | tee build.log
+
+      - name: Create IPA
+        shell: bash
+        run: |
+          APP=$(find "$PWD/build" \
+            -type d \
+            -name "*.app" \
+            -path "*Release-iphoneos*" \
+            | head -1)
+
+          if [ -z "$APP" ]; then
+            echo "没有找到编译后的 APP"
+            exit 1
+          fi
+
+          echo "找到 APP: $APP"
+
+          rm -rf Payload
+          mkdir Payload
+
+          cp -R "$APP" Payload/
+
+          zip -r PineappleWords-unsigned.ipa Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: PineappleWords-IPA
+          path: PineappleWords-unsigned.ipa
+
+      - name: Upload Build Log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-Log
+          path: build.log
+          if-no-files-found: ignore
