@@ -1,0 +1,130 @@
+{
+  "environment": "Windows / no Xcode, no Swift compiler, no Apple SDK",
+  "swift_files": 64,
+  "swift_lines": 4593,
+  "authored_test_cases": 79,
+  "checks": [
+    {
+      "name": "Swift syntax parse",
+      "passed": true,
+      "details": "[]"
+    },
+    {
+      "name": "Independent OpenStep parse",
+      "passed": true,
+      "details": "146 objects"
+    },
+    {
+      "name": "All Xcode object references resolve",
+      "passed": true,
+      "details": "[]"
+    },
+    {
+      "name": "All Xcode file references exist",
+      "passed": true,
+      "details": "[]"
+    },
+    {
+      "name": "Every app Swift file is in Sources build phase",
+      "passed": true,
+      "details": "set()"
+    },
+    {
+      "name": "Scheme target PineappleWords",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Scheme target PineappleWordsTests",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Scheme target PineappleWordsUITests",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Scheme target PineappleWords",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Scheme target PineappleWords",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Info and privacy property lists parse",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "iPad multitasking not forced fullscreen",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "iPad all orientations declared",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Asset AppIcon.png",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Icon 1024 RGB with no alpha",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Import sample 2 lessons / 8 words",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "No try! or fatalError in application source",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "No embedded live API key",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "CloudKit disabled",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Keychain device-only protection",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Backup excludes settings API key field",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "No external Swift package URLs",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "No absolute developer-machine path embedded",
+      "passed": true,
+      "details": ""
+    }
+  ],
+  "not_executed": [
+    "Swift type-check / swift test",
+    "Xcode build / simulator tests",
+    "Physical iPad / iPhone / Split View",
+    "Real DeepSeek API",
+    "Two-device restore"
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "name": "原创入门体验词书",
+  "description": "8 个原创编写的体验词条，用于手动验证学习流程，不属于任何教材。",
+  "source": "项目原创体验资料",
+  "chapters": [
+    {
+      "lessonNumber": 1,
+      "lessonName": "Lesson 1 · 物主表达",
+      "words": [
+        {
+          "word": "my",
+          "ipa": "/maɪ/",
+          "part_of_speech": [
+            "限定词"
+          ],
+          "meanings": [
+            "我的"
+          ],
+          "english_definition": "belonging to the speaker",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "This is my book.",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "your",
+          "ipa": "/jɔː/",
+          "part_of_speech": [
+            "限定词"
+          ],
+          "meanings": [
+            "你的"
+          ],
+          "english_definition": "belonging to the person being spoken to",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "Is this your chair?",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "our",
+          "ipa": "/aʊə/",
+          "part_of_speech": [
+            "限定词"
+          ],
+          "meanings": [
+            "我们的"
+          ],
+          "english_definition": "belonging to the speaker and other people",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "Our room is quiet.",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "their",
+          "ipa": "/ðeə/",
+          "part_of_speech": [
+            "限定词"
+          ],
+          "meanings": [
+            "他们的"
+          ],
+          "english_definition": "belonging to the people already mentioned",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "Their studio is bright.",
+              "chinese": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonNumber": 2,
+      "lessonName": "Lesson 2 · 身边与空间",
+      "words": [
+        {
+          "word": "book",
+          "ipa": "/bʊk/",
+          "part_of_speech": [
+            "名词"
+          ],
+          "meanings": [
+            "书"
+          ],
+          "english_definition": "a set of written or printed pages",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "This book is about light.",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "chair",
+          "ipa": "/tʃeə/",
+          "part_of_speech": [
+            "名词"
+          ],
+          "meanings": [
+            "椅子"
+          ],
+          "english_definition": "a seat for one person",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "The chair is near the window.",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "light",
+          "ipa": "/laɪt/",
+          "part_of_speech": [
+            "名词"
+          ],
+          "meanings": [
+            "光"
+          ],
+          "english_definition": "the brightness that makes things visible",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "The room has soft light.",
+              "chinese": null
+            }
+          ]
+        },
+        {
+          "word": "space",
+          "ipa": "/speɪs/",
+          "part_of_speech": [
+            "名词"
+          ],
+          "meanings": [
+            "空间"
+          ],
+          "english_definition": "an area available for use",
+          "phrases": [],
+          "examples": [
+            {
+              "english": "We need more space for the table.",
+              "chinese": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
